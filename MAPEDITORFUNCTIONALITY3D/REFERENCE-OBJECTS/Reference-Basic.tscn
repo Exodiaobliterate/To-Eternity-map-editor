@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ka2n1td2pgtx"]
+
+[ext_resource type="Script" uid="uid://d2clkvqyuu0vb" path="res://MAPEDITORFUNCTIONALITY3D/SCRIPTS/Reference.gd" id="1_qka47"]
+
+[node name="ReferenceBasic" type="Node3D"]
+script = ExtResource("1_qka47")
