@@ -1,0 +1,289 @@
+[gd_scene load_steps=13 format=3 uid="uid://c76djv5y3jtyh"]
+
+[ext_resource type="Script" uid="uid://bkcdne1stwtrm" path="res://MAPEDITORFUNCTIONALITY2D/SCRIPTS/CAMERA.gd" id="1_at2li"]
+[ext_resource type="Script" uid="uid://bgyth6mn2l68a" path="res://MAPEDITORFUNCTIONALITY2D/SCRIPTS/UI2D.gd" id="2_0vsln"]
+[ext_resource type="PackedScene" uid="uid://cjv6av7glntk0" path="res://MAPEDITORFUNCTIONALITY2D/SpriteScenes/Player_Example.tscn" id="3_uo3n0"]
+[ext_resource type="Texture2D" uid="uid://ddm02hh6754th" path="res://MAPEDITORFUNCTIONALITY2D/UITEXTURES/border.png" id="4_uo3n0"]
+[ext_resource type="Script" uid="uid://reu1uju44w2v" path="res://MAPEDITORFUNCTIONALITY2D/SCRIPTS/LoadingMethodForMathEditor2D.gd" id="6_uo3n0"]
+[ext_resource type="TileSet" uid="uid://dd7q1dcegds71" path="res://MAPEDITORFUNCTIONALITY2D/TILESETS/BUILT-IN/TilesetResources/Normal.tres" id="7_iqw4n"]
+[ext_resource type="Script" uid="uid://c7e1wslmewk6m" path="res://MAPEDITORFUNCTIONALITY3D/SCRIPTS/naming.gd" id="7_o3anu"]
+[ext_resource type="Script" uid="uid://ctet7adug0t2d" path="res://MAPEDITORFUNCTIONALITY3D/SCRIPTS/warning!.gd" id="9_yxvoq"]
+
+[sub_resource type="Theme" id="Theme_iqw4n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4y5k"]
+font_size = 23
+
+[sub_resource type="LabelSettings" id="LabelSettings_hjtw4"]
+font_size = 29
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uo3n0"]
+size = Vector2(32, 32)
+
+[node name="MapEditor2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(579, 302)
+position_smoothing_enabled = true
+script = ExtResource("1_at2li")
+pan_speed = 5
+grab = "Throw"
+interact = "PickUp"
+delete = "delete"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+script = ExtResource("2_0vsln")
+DifferentCreatables = [ExtResource("3_uo3n0")]
+Tools = ["Tilemap Edit", "Property Edit", "Entity Maker"]
+Border = ExtResource("4_uo3n0")
+
+[node name="ToolsMenu" type="Panel" parent="Camera2D/CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -325.0
+offset_right = 224.0
+offset_bottom = 320.0
+grow_vertical = 2
+theme = SubResource("Theme_iqw4n")
+
+[node name="OptionButton" type="OptionButton" parent="Camera2D/CanvasLayer/ToolsMenu"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 76.0
+offset_right = 111.0
+offset_bottom = 96.0
+allow_reselect = true
+
+[node name="ObjectButton" type="OptionButton" parent="Camera2D/CanvasLayer/ToolsMenu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 142.0
+offset_right = 110.0
+offset_bottom = 162.0
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/ToolsMenu"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 19.0
+offset_right = 133.0
+offset_bottom = 42.0
+text = "TOOLS"
+
+[node name="TilesetMenu" type="Panel" parent="Camera2D/CanvasLayer/ToolsMenu"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 10.0
+offset_top = -128.5
+offset_right = 213.0
+offset_bottom = 310.5
+grow_vertical = 2
+
+[node name="TileMaps" type="ScrollContainer" parent="Camera2D/CanvasLayer/ToolsMenu/TilesetMenu"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 198.0
+offset_bottom = 335.0
+
+[node name="TilesetBox" type="GridContainer" parent="Camera2D/CanvasLayer/ToolsMenu/TilesetMenu/TileMaps"]
+layout_mode = 2
+columns = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/ToolsMenu/TilesetMenu"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 377.0
+offset_right = 201.0
+offset_bottom = 407.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/ToolsMenu/TilesetMenu/ScrollContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PropertyMenu" type="Panel" parent="Camera2D/CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -362.0
+offset_top = -323.0
+offset_bottom = 325.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/PropertyMenu"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 16.0
+offset_right = 345.0
+offset_bottom = 633.0
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/PropertyMenu/ScrollContainer"]
+layout_mode = 2
+
+[node name="Name&PositionMenu" type="Panel" parent="Camera2D/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -352.0
+offset_top = -1.0
+offset_right = 215.0
+offset_bottom = 64.0
+grow_horizontal = 2
+
+[node name="Name" type="Label" parent="Camera2D/CanvasLayer/Name&PositionMenu"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 14.0
+offset_right = 300.0
+offset_bottom = 49.0
+text = "Map Name: "
+label_settings = SubResource("LabelSettings_h4y5k")
+
+[node name="Button" type="Button" parent="Camera2D/CanvasLayer/Name&PositionMenu"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 18.0
+offset_right = 549.0
+offset_bottom = 49.0
+text = "Name Map"
+
+[node name="NAMING" type="Panel" parent="Camera2D/CanvasLayer/Name&PositionMenu"]
+visible = false
+layout_mode = 0
+offset_left = 60.0
+offset_top = 114.0
+offset_right = 524.0
+offset_bottom = 488.0
+script = ExtResource("7_o3anu")
+
+[node name="NameText" type="Label" parent="Camera2D/CanvasLayer/Name&PositionMenu/NAMING"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 37.0
+offset_right = 113.0
+offset_bottom = 83.0
+text = "Name:"
+label_settings = SubResource("LabelSettings_hjtw4")
+
+[node name="Name" type="TextEdit" parent="Camera2D/CanvasLayer/Name&PositionMenu/NAMING"]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 43.0
+offset_right = 429.0
+offset_bottom = 79.0
+placeholder_text = "Type Name Here"
+
+[node name="DoneButton" type="Button" parent="Camera2D/CanvasLayer/Name&PositionMenu/NAMING"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 168.0
+offset_bottom = 133.0
+text = "Finished"
+
+[node name="FileManager" type="Panel" parent="Camera2D/CanvasLayer"]
+offset_left = 224.0
+offset_top = 64.0
+offset_right = 791.0
+offset_bottom = 103.0
+
+[node name="MenuButton" type="MenuButton" parent="Camera2D/CanvasLayer/FileManager"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 50.0
+offset_bottom = 34.0
+text = "FILE"
+item_count = 3
+popup/item_0/text = "Save Map"
+popup/item_0/checkable = 2
+popup/item_0/id = 0
+popup/item_1/id = 2
+popup/item_1/separator = true
+popup/item_2/text = "Load Map"
+popup/item_2/checkable = 2
+popup/item_2/id = 1
+
+[node name="LevelLoaderMenu" type="Panel" parent="Camera2D/CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -316.5
+offset_top = -198.0
+offset_right = 156.5
+offset_bottom = 276.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/LevelLoaderMenu"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 464.0
+offset_bottom = 466.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/LevelLoaderMenu/ScrollContainer"]
+layout_mode = 2
+script = ExtResource("6_uo3n0")
+
+[node name="WARNING!" type="Panel" parent="Camera2D/CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -268.0
+offset_top = -152.0
+offset_right = 127.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_yxvoq")
+
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/WARNING!"]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 399.0
+offset_bottom = 49.0
+text = "WARNING IF YOU LOAD A NEW MAP ANY UNSAVED 
+CHANGES WILL BE LOST"
+horizontal_alignment = 1
+
+[node name="LOAD" type="Button" parent="Camera2D/CanvasLayer/WARNING!"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 75.0
+offset_right = 103.0
+offset_bottom = 101.0
+text = "LOAD"
+
+[node name="CANCEL" type="Button" parent="Camera2D/CanvasLayer/WARNING!"]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 75.0
+offset_right = 377.0
+offset_bottom = 106.0
+text = "CANCEL"
+
+[node name="TileSeer" type="TextureRect" parent="Camera2D/CanvasLayer"]
+offset_right = 32.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("PlaceholderTexture2D_uo3n0")
+
+[node name="Map" type="Node2D" parent="."]
+
+[node name="MapLayer" type="TileMapLayer" parent="Map"]
+tile_set = ExtResource("7_iqw4n")
